@@ -8,9 +8,11 @@ using System.Timers;
 
 namespace SnakeGame
 {
+    
     public class SnakeGameController : Controller
     {
         Timer timer;
+        bool TimeSpace = false;
 
         public SnakeGameController()
         {
@@ -24,6 +26,7 @@ namespace SnakeGame
         public void KeyUpHandled(KeyboardState ks)
         {
             int direction = -1;
+            
             Keys[] keys = ks.GetPressedKeys();
            
             if (keys.Contains(Keys.Up))
@@ -42,6 +45,20 @@ namespace SnakeGame
             {
                 direction = SnakeGameModel.MOVE_RIGHT;
             }
+            else if (keys.Contains(Keys.Space))
+            {
+                if (!TimeSpace)
+                {
+                    Stop();
+                    TimeSpace = true;
+                }
+                else
+                {
+                    Start();
+                    TimeSpace = false;
+                }
+            }
+            
             // Find all snakeboard model we know
             if (direction == -1) return;
             foreach (Model m in mList)

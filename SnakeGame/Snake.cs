@@ -18,7 +18,7 @@ namespace SnakeGame
 
         protected static Snake _instance = null;
 
-
+        public bool xMode = false;
 
         public static void Debug(string str)
         {
@@ -56,9 +56,11 @@ namespace SnakeGame
             try
             {
                 Snake.Debug("create view");
-                sgv = new SnakeGameView(40, 40);
+                if(xMode) sgv = new SnakeGameView(2*40, 2*40);
+                else sgv = new SnakeGameView(40, 40);
                 Snake.Debug("create model");
-                sgm = new SnakeGameModel(40, 40);
+                if (xMode) sgm = new SnakeGameModel(2*40, 2*40);
+                else sgm = new SnakeGameModel(40, 40);
                 Snake.Debug("create controller");
                 sgc = new SnakeGameController();
                 Snake.Debug("attach model");
@@ -115,6 +117,20 @@ namespace SnakeGame
             {
                 sgv.Dispose();
                 sgv.Exit();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(!xMode)
+            {
+                xMode = true;
+                button1.BackColor = Color.DarkRed;
+            }
+            else
+            {
+                xMode = false;
+                button1.BackColor = Color.White;
             }
         }
     }

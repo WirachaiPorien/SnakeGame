@@ -50,6 +50,8 @@ namespace SnakeGame
         public const int MAX_SPEED = 250;
         protected static int _speed = 1;
 
+        
+
         public static int Speed
         {
             set
@@ -120,8 +122,8 @@ namespace SnakeGame
             int x, y;
             do
             {
-                x = rand.Next(boardWidth);
-                y = rand.Next(boardHeight);
+                x = 1+rand.Next(boardWidth-2);
+                y = 1+rand.Next(boardHeight-2);
             } while (isSnakeBody(x, y));
             _board[x, y] = BOARD_FOOD;
         }
@@ -166,12 +168,14 @@ namespace SnakeGame
             if (isSnakeBody(curHeadX, curHeadY))
             {
                 _isHit = true;
+                Speed = 1;//set speed when hit myself 
                 return;
             }
             // hit wall?
             if (_board[curHeadX, curHeadY] == BOARD_WALL)
             {
                 _isHit = true;
+                Speed = 1;//set speed when hit myself 
                 return;
             }
             // hit food?
@@ -179,6 +183,7 @@ namespace SnakeGame
             {
                 _isEating = true;
                 Speed += 1;
+                
             }
             
             // add new head
